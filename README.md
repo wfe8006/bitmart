@@ -15,7 +15,7 @@ Some features include:
 
 # Prerequisites
 
-T
+
 * [sphinx](http://www.sphinxsearch.com) is used to query the categories directly from memory. When compiling sphinx from source manually, you need to enable --with-pgsql as the database is postgresql
 
 * As Bitmart uploads listing photos directly to Amazon s3-compatible storage, you will need to provide credentials and a bucket name from such service provider (eg, Amazon s3, dreamobjects, Google cloud storage)
@@ -27,19 +27,19 @@ T
 # Installation
 * Download and extract the source code
 * Enable url rewrite, for nginx: rewrite ^(.+)$ /index.php?kohana_uri=$1 last;
-* Install Bitmart database from the dump file - <project_root>/database/bitmart.sql.tar.gz
-* Customize the settings: <project_root>/kohana/config/*
+* Install Bitmart database from the dump file - *project_root*/database/bitmart.sql.tar.gz
+* Customize the settings: *project_root*/kohana/config/*
   * config/hybridauth.php - configure credentials of each service provider (eg: Facebook/Google/Yahoo) in order to support social login
   * config/database.php - Postgresql database credentials
   * config/general.php - Configure site name, base url, s3-compatible credentials, cryptocurrencies settings and more.
-* After you have got sphinxsearch up and running, copy and modify <project_root>/database/sphinx.conf accordingly.
-* Edit the settings in  <project_root>/database/populate_category.php and run the script to copy category records to sphinx index.
+* After you have got sphinxsearch up and running, copy and modify *project_root*/database/sphinx.conf accordingly.
+* Edit the settings in  *project_root*/database/populate_category.php and run the script to copy category records to sphinx index.
 * Compile/download and run cryptocurrency daemon. For example, if you plan to accept Bitcoin, make sure bitcoind is running. It's needed so that when a new transaction hits the wallet, Bitmart will be notified via a transaction hash and process the transaction accordingly. You can turn the following command into a service,
-/opt/crypto/bitcoind -datadir=/opt/crypto/bitcoin -daemon -blocknotify="curl http://<your_site>/callback/block/btc/%s" -walletnotify="curl http://<your_site>/callback/wallet/
-* Configure a cron job to run <project_root>/database/convert_currency.php, it will fetch the currency prices via openexchangerates JSON API and update <project_root>/kohana/application/general.php accordingly
+/opt/crypto/bitcoind -datadir=/opt/crypto/bitcoin -daemon -blocknotify="curl http://*your_site*/callback/block/btc/%s" -walletnotify="curl http://*your_site*/callback/wallet/
+* Configure a cron job to run *project_root*/database/convert_currency.php, it will fetch the currency prices via openexchangerates JSON API and update *project_root*/kohana/application/general.php accordingly
 
-# Known Issues /Todo
-* <project_root>/kohana/application/general.php contains hardcoded cryptocurrency exchange rate, it's supposed to be updated via third-party exchange such as bittrex and cryptsy.
+# Known Issues / Todo
+* *project_root*/kohana/application/general.php contains hardcoded cryptocurrency exchange rate, it's supposed to be updated via third-party exchange such as bittrex and cryptsy.
 
 
 
