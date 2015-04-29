@@ -1,0 +1,56 @@
+<form id="fcontent" name="fcontent" action="/my/purchase" method="post">
+<?php include "my_menu.php"; ?>
+	<div class="col2 col-lg-10 col-md-10">
+		<h4><?php echo I18n::get('purchase_history') ?></h4><hr>
+<?php
+if ( ! empty($msg))
+{
+	echo "<div class=\"alert alert-info alert-block\">$msg</span></div>";
+}
+
+if (count($order_obj) > 0)
+{
+?>
+		<p><br></p>
+	<?php
+	function object_to_array($object)
+	{
+		if ( ! is_object($object) AND ! is_array($object))
+		{
+			return $object;
+		}
+		if (is_object($object))
+		{
+			$object = get_object_vars($object);
+		}
+		return array_map('object_to_array', $object);
+	}
+	echo "<span class=\"col-lg-3 col-md-3\"><b>" . I18n::get('item') . "</b></span><span class=\"col-lg-3 col-md-3 pull-right\"><b class=\"pull-right\">" . I18n::get('total') . "</b></span><span class=\"col-lg-2 col-md-2 pull-right\"><b>" . I18n::get('order_status') . "</b></span><span class=\"col-lg-2 col-md-2 pull-right\"><b>" . I18n::get('order_date') . "</b></span><span class=\"col-lg-2 col-md-2 pull-right\"><b>" . I18n::get('seller') . "</b></span><br><hr>";
+	echo "<div class=\"clearfix\"></div>";
+	foreach ($order_obj as $record)
+	{
+		$array_data = object_to_array(json_decode($record['data']));
+		echo "<span class=\"col-lg-3 col-md-3\"><a class=\"btn btn-default\" href=\"/my/purchase/detail?id={$record['order_id']}\">" . I18n::get('view_order') . "</a></span><span class=\"col-lg-3 col-md-3 pull-right\"><h4 class=\"pull-right\">{$array_data['new_total']} " . strtoupper($array_data['new_currency_code']) . "</h4></span><span class=\"col-lg-2 col-md-2 pull-right\">{$record['order_status']}</span><span class=\"col-lg-2 col-md-2 pull-right\">" . date('M d, Y', $record['submitted']) ."</span><span class=\"col-lg-2 col-md-2 pull-right\">{$record['seller']}</span><div class=\"clearfix\"></div>";
+		foreach ($array_data['item'] as $ld_id => $value)
+		{
+		?>
+		<div class="col-lg-12">
+			<br><a href="<?php echo '/st/' . $value['uid'] ?>"><?php echo HTML::chars($value['title']) ?></a> x <?php echo $value['quantity'] ?>
+		</div>
+		<?php
+		}
+		echo "<br><hr class=\"bb\">";
+		
+	}
+	echo $pagination;
+}
+
+else
+{
+	echo "<div>" . I18n::get('no_results') . "</div>";
+}
+?>
+		
+	</div>
+</form>	
+<script src="<?php echo $cfg["jquery.js"] ?>"></script>

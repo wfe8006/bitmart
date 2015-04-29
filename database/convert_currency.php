@@ -1,0 +1,191 @@
+<?php
+$config_file = '/var/www/bitmart/kohana/application/config/general.php';
+$country_array = array(
+"AED",
+"AFN",
+"ALL",
+"AMD",
+"ANG",
+"AOA",
+"ARS",
+"AUD",
+"AWG",
+"AZN",
+"BAM",
+"BBD",
+"BDT",
+"BGN",
+"BHD",
+"BIF",
+"BMD",
+"BND",
+"BOB",
+"BRL",
+"BSD",
+"BTN",
+"BWP",
+"BYR",
+"BZD",
+"CAD",
+"CDF",
+"CHF",
+"CLP",
+"CNY",
+"COP",
+"CRC",
+"CUP",
+"CVE",
+"CZK",
+"DJF",
+"DKK",
+"DOP",
+"DZD",
+"EGP",
+"ETB",
+"EUR",
+"FJD",
+"FKP",
+"GBP",
+"GEL",
+"GHS",
+"GIP",
+"GMD",
+"GNF",
+"GTQ",
+"GYD",
+"HKD",
+"HNL",
+"HRK",
+"HTG",
+"HUF",
+"IDR",
+"ILS",
+"INR",
+"IQD",
+"IRR",
+"ISK",
+"JEP",
+"JMD",
+"JOD",
+"JPY",
+"KES",
+"KGS",
+"KHR",
+"KMF",
+"KPW",
+"KRW",
+"KWD",
+"KYD",
+"KZT",
+"LAK",
+"LBP",
+"LKR",
+"LRD",
+"LSL",
+"LTL",
+"LVL",
+"LYD",
+"MAD",
+"MDL",
+"MGA",
+"MKD",
+"MMK",
+"MNT",
+"MOP",
+"MRO",
+"MUR",
+"MVR",
+"MWK",
+"MXN",
+"MYR",
+"MZN",
+"NAD",
+"NGN",
+"NIO",
+"NOK",
+"NPR",
+"NZD",
+"OMR",
+"PAB",
+"PEN",
+"PGK",
+"PHP",
+"PKR",
+"PLN",
+"PYG",
+"QAR",
+"RON",
+"RSD",
+"RUB",
+"RWF",
+"SAR",
+"SBD",
+"SCR",
+"SDG",
+"SEK",
+"SGD",
+"SHP",
+"SLL",
+"SOS",
+"SRD",
+"STD",
+"SYP",
+"SZL",
+"THB",
+"TJS",
+"TMT",
+"TND",
+"TOP",
+"TRY",
+"TTD",
+"TWD",
+"TZS",
+"UAH",
+"UGX",
+"USD",
+"UYU",
+"UZS",
+"VEF",
+"VND",
+"VUV",
+"WST",
+"XAF",
+"XCD",
+"XOF",
+"XPF",
+"YER",
+"ZAR",
+"ZMW"
+);
+
+$file = 'latest.json';
+$appId = ''; //openexchangerates app id
+
+// Open CURL session:
+$ch = curl_init("http://openexchangerates.org/api/{$file}?app_id={$appId}");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+// Get the data:
+$json = curl_exec($ch);
+curl_close($ch);
+
+// Decode JSON response:
+$exchange_rates = json_decode($json);
+
+foreach ($country_array as $country)
+{
+    $usd_to_other = 'USD_' . $country;
+    $currency = sprintf("%0.6f", $exchange_rates->rates->$country); 
+    $command = "s/'$usd_to_other'.*/'$usd_to_other' => $currency,/g";
+    exec("/bin/sed -i \"$command\" $config_file");
+    echo "\n$usd_to_other: $currency"; 
+
+    $other_to_usd = $country . '_USD';
+    $currency = sprintf("%0.6f", (1/$exchange_rates->rates->$country));
+    $command = "s/'$other_to_usd'.*/'$other_to_usd' => $currency,/g";
+    exec("/bin/sed -i \"$command\" $config_file");
+    echo "\n$other_to_usd: $currency";
+    echo "\n\n";
+}
+    
+?>

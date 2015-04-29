@@ -1,0 +1,1 @@
+<?phpreturn array(	'opassword' => Array	(		'default' => 'Your current password is incorrect'	),	'npassword' => Array	(		'length' => 'Password must be 6 to 40 characters',		'default' => 'Your new password must be different from your current password'	),	'cpassword' => Array	(		'default' => 'Password mismatch, please re-enter and reconfirm password'	));
