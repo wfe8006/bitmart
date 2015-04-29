@@ -35,7 +35,7 @@ Some features include:
 * After you have got sphinxsearch up and running, copy and modify **project_root**/database/sphinx.conf accordingly.
 * Edit the settings in  **project_root**/database/populate_category.php and run the script to copy category records to sphinx index.
 * Compile/download and run cryptocurrency daemon. For example, if you plan to accept Bitcoin, make sure bitcoind is running. It's needed so that when a new transaction hits the wallet, Bitmart will be notified via a transaction hash and process the transaction accordingly. You can turn the following command into a service,
-/opt/crypto/bitcoind -datadir=/opt/crypto/bitcoin -daemon -blocknotify="curl http://**your_site**/callback/block/btc/%s" -walletnotify="curl http://**your_site**/callback/wallet/
+`/opt/crypto/bitcoind -datadir=/opt/crypto/bitcoin -daemon -blocknotify="curl http://**your_site**/callback/block/btc/%s" -walletnotify="curl http://**your_site**/callback/wallet/btc/%s"`
 * Configure a cron job to run **project_root**/database/convert_currency.php, it will fetch the currency prices via openexchangerates JSON API and update **project_root**/kohana/application/general.php accordingly
 
 # Known Issues / Todo
