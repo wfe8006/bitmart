@@ -9,7 +9,7 @@ Built on top of [Kohana framework](http://www.kohanaframework.org), Bitmart is a
 Some features include:
 * built-in Escrow - Order paid with cryptocurrency will trigger the built-in escrow process.
 
-* instant digital delivery - once enabled, digital goods such as activation code can be delivered to the buyer in text form or url after payment has been made
+* instant digital delivery - once enabled, digital goods such as activation code or serial number can be delivered to the buyer in text form or url after payment has been made
 
 * custom shipping table and tax modules
 
