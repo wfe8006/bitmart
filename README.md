@@ -40,6 +40,8 @@ Some features include:
 ```
 * Configure a cron job to run **project_root**/database/convert_currency.php, it will fetch the currency prices via openexchangerates JSON API and update **project_root**/kohana/application/general.php accordingly
 
+* The default login is: username = admin, password = admin
+
 # Known Issues / Todo
 * **project_root**/kohana/application/general.php contains hardcoded cryptocurrency exchange rate, it's supposed to be updated via third-party exchange such as bittrex and cryptsy.
 
