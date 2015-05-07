@@ -45,7 +45,8 @@ Some features include:
 # Known Issues / Todo
 * **project_root**/kohana/application/general.php contains hardcoded cryptocurrency exchange rate, it's supposed to be updated via third-party exchange such as bittrex and cryptsy.
 
-
+![Alt text](/screenshots/ss1.jpg?raw=true "Cryptocurrency page")
+![Alt text](/screenshots/ss2.jpg?raw=true "Settings page")
 
 
 
