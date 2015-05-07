@@ -189,7 +189,7 @@ else
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a href="../" class="navbar-brand"><span id="logo_all">All</span><span id="logo_sos">Sos</span></a>
+					<a href="../" class="navbar-brand"><span id="logo_all"><?php echo $cfg["site_name"] ?></span></a>
 				</div>
 				
 				<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
