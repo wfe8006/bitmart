@@ -24,6 +24,8 @@ Some features include:
 
 * [openexchangerates account](http://www.openexchangerates.org/) - convert one currency to another via JSON API
 
+* SSL certificate
+
 # Installation
 * Download and extract the source code
 * Enable url rewrite, for nginx: rewrite ^(.+)$ /index.php?kohana_uri=$1 last;
@@ -45,6 +47,7 @@ Some features include:
 # Known Issues / Todo
 * **project_root**/kohana/application/general.php contains hardcoded cryptocurrency exchange rate, it's supposed to be updated via third-party exchange such as bittrex and cryptsy.
 
+# Screenshots
 ![Alt text](/screenshots/ss1.jpg?raw=true "Cryptocurrency page")
 ![Alt text](/screenshots/ss2.jpg?raw=true "Settings page")
 
